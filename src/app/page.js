@@ -1,112 +1,201 @@
+"use client"
 import Image from 'next/image'
+import Table from './components/Table/Table'
+import { Button, User } from '@nextui-org/react'
+import { Accordion, AccordionItem } from "@nextui-org/accordion";
+import { useState } from 'react';
+import OrganizacionOption from "./components/OptionsMenu/OrganizacionOption"
+import UsuarioOption from "./components/OptionsMenu/UsuarioOption"
+import DepartamentoOption from "./components/OptionsMenu/DepartamentoOption"
+import EtiquetaOption from "./components/OptionsMenu/EtiquetaOption"
+import Categoria from "./components/OptionsMenu/CategoriaOption"
+import ClasificacionOption from "./components/OptionsMenu/ClasificacionOption"
+import TipoActivoOption from "./components/OptionsMenu/TipoActivoOption"
+import CriticidadOption from "./components/OptionsMenu/CriticidadOption"
+import GrupoOption from "./components/OptionsMenu/GrupoOption"
+import ActionOption from "./components/OptionsMenu/ActivoOption"
 
 export default function Home() {
+  //OpcionesDelMenu
+  const [opcionesMenu, setOpcionesMenu] = useState([{
+    0: true,
+    component: OrganizacionOption
+  }, {
+    1: false,
+    component: UsuarioOption
+  }, {
+    2: false,
+    component: DepartamentoOption
+  }, {
+    3: false,
+    component: EtiquetaOption
+  }, {
+    4: false,
+    component: ClasificacionOption
+  }, {
+    5: false,
+    component: Categoria
+  }, {
+    6: false,
+    component: TipoActivoOption
+  }, {
+    7: false,
+    component: CriticidadOption
+  }, {
+    8: false,
+    component: GrupoOption
+  }, {
+    9: false,
+    component: ActionOption
+  }]);
+
+
+  //funciones para los cambios de estados
+
+  const handleChangeOption = (numero) => {
+    const nuevasOpcionesMenu = opcionesMenu.map((opcion, index) => {
+      return {
+        ...opcion,
+        [index]: index === numero
+      }
+    })
+
+    setOpcionesMenu(nuevasOpcionesMenu)
+  }
+
+
   return (
     <main className="flex min-h-screen flex-col items-center justify-between p-24">
-      <div className="z-10 max-w-5xl w-full items-center justify-between font-mono text-sm lg:flex">
-        <p className="fixed left-0 top-0 flex w-full justify-center border-b border-gray-300 bg-gradient-to-b from-zinc-200 pb-6 pt-8 backdrop-blur-2xl dark:border-neutral-800 dark:bg-zinc-800/30 dark:from-inherit lg:static lg:w-auto  lg:rounded-xl lg:border lg:bg-gray-200 lg:p-4 lg:dark:bg-zinc-800/30">
-          Get started by editing&nbsp;
-          <code className="font-mono font-bold">src/app/page.js</code>
-        </p>
-        <div className="fixed bottom-0 left-0 flex h-48 w-full items-end justify-center bg-gradient-to-t from-white via-white dark:from-black dark:via-black lg:static lg:h-auto lg:w-auto lg:bg-none">
-          <a
-            className="pointer-events-none flex place-items-center gap-2 p-8 lg:pointer-events-auto lg:p-0"
-            href="https://vercel.com?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            By{' '}
-            <Image
-              src="/vercel.svg"
-              alt="Vercel Logo"
-              className="dark:invert"
-              width={100}
-              height={24}
-              priority
+      {/*sideBar */}
+      <div className={opcionesMenu[9][9] ? "SideBarHidden":"SideBar"}>
+        <div className='ContentSideBar'>
+          <center>
+            <Image src='/logo.png' width={70} height={70} />
+          </center>
+          {/*User photo, roll and name*/}
+          <br />
+          <center>
+            <User
+              name="Jane Doe"
+              description="Admin"
+              avatarProps={{
+                src: "https://i.pravatar.cc/150?u=a04258114e29026702d"
+              }}
             />
-          </a>
+          </center>
+          <br />
+          <hr />
+
+          <Accordion
+            motionProps={{
+              variants: {
+                enter: {
+                  y: 0,
+                  opacity: 1,
+                  height: "auto",
+                  transition: {
+                    height: {
+                      type: "spring",
+                      stiffness: 500,
+                      damping: 30,
+                      duration: 1,
+                    },
+                    opacity: {
+                      easings: "ease",
+                      duration: 1,
+                    },
+                  },
+                },
+                exit: {
+                  y: -10,
+                  opacity: 0,
+                  height: 0,
+                  transition: {
+                    height: {
+                      easings: "ease",
+                      duration: 0.25,
+                    },
+                    opacity: {
+                      easings: "ease",
+                      duration: 0.3,
+                    },
+                  },
+                },
+              },
+            }}
+          >
+            <AccordionItem key="1" aria-label="Accordion 1"  title="Gestiones">
+              <Button onClick={() => handleChangeOption(0)} style={{ width: "100%", color:"white" }}variant="solid" 
+              color={opcionesMenu[0][0] ? "secondary": "transparent"}
+              >
+                
+                Organizaciones
+              </Button>
+              <Button onClick={() => handleChangeOption(8)} style={{ width: "100%", color:"white" }} variant="solid"
+              color={opcionesMenu[8][8] ? "secondary": "transparent"}
+              >
+                Grupos
+              </Button>
+              <Button onClick={() => handleChangeOption(1)} style={{ width: "100%", color:"white" }} variant="solid"
+              color={opcionesMenu[1][1] ? "secondary": "transparent"}
+              >
+                Usuarios
+              </Button>
+              <Button onClick={() => handleChangeOption(2)} style={{ width: "100%", color:"white" }} variant="solid"
+              color={opcionesMenu[2][2] ? "secondary": "transparent"}
+              >
+                Departamentos
+              </Button>
+              <Button onClick={() => handleChangeOption(3)} style={{ width: "100%", color:"white" }} variant="solid"
+              color={opcionesMenu[3][3] ? "secondary": "transparent"}
+              >
+                Etiquetas
+              </Button>
+              <Button onClick={() => handleChangeOption(6)} style={{ width: "100%", color:"white" }} variant="solid"
+              color={opcionesMenu[6][6] ? "secondary": "transparent"}
+              >
+                Tipo de Activos
+              </Button>
+              <Button onClick={() => handleChangeOption(5)} style={{ width: "100%", color:"white" }} variant="solid"
+              color={opcionesMenu[5][5] ? "secondary": "transparent"}
+              >
+                Categorias
+              </Button>
+              <Button onClick={() => handleChangeOption(4)} style={{ width: "100%", color:"white" }} variant="solid"
+              color={opcionesMenu[4][4] ? "secondary": "transparent"}
+              >
+                Clasificaciones
+              </Button>
+              <Button onClick={() => handleChangeOption(7)} style={{ width: "100%", color:"white" }} variant="solid"
+              color={opcionesMenu[7][7] ? "secondary": "transparent"}
+              >
+                Criticidad
+              </Button>
+            
+            </AccordionItem>
+            <AccordionItem key="2" aria-label="Accordion 2" title="Activos">
+              <Button onClick={() => handleChangeOption(9)} style={{ width: "100%", color:"white" }} variant="solid" 
+              color={opcionesMenu[9][9] ? "secondary": "transparent"}>
+                Identificación
+              </Button>
+              <Button style={{ width: "100%", color:"white" }} variant="solid" 
+              color={opcionesMenu[0][99] ? "secondary": "transparent"}>
+                Evaluación
+              </Button>
+             
+            </AccordionItem>
+          </Accordion>
+
+
         </div>
       </div>
-
-      <div className="relative flex place-items-center before:absolute before:h-[300px] before:w-[480px] before:-translate-x-1/2 before:rounded-full before:bg-gradient-radial before:from-white before:to-transparent before:blur-2xl before:content-[''] after:absolute after:-z-20 after:h-[180px] after:w-[240px] after:translate-x-1/3 after:bg-gradient-conic after:from-sky-200 after:via-blue-200 after:blur-2xl after:content-[''] before:dark:bg-gradient-to-br before:dark:from-transparent before:dark:to-blue-700 before:dark:opacity-10 after:dark:from-sky-900 after:dark:via-[#0141ff] after:dark:opacity-40 before:lg:h-[360px] z-[-1]">
-        <Image
-          className="relative dark:drop-shadow-[0_0_0.3rem_#ffffff70] dark:invert"
-          src="/next.svg"
-          alt="Next.js Logo"
-          width={180}
-          height={37}
-          priority
-        />
-      </div>
-
-      <div className="mb-32 grid text-center lg:max-w-5xl lg:w-full lg:mb-0 lg:grid-cols-4 lg:text-left">
-        <a
-          href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2 className={`mb-3 text-2xl font-semibold`}>
-            Docs{' '}
-            <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
-              -&gt;
-            </span>
-          </h2>
-          <p className={`m-0 max-w-[30ch] text-sm opacity-50`}>
-            Find in-depth information about Next.js features and API.
-          </p>
-        </a>
-
-        <a
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800 hover:dark:bg-opacity-30"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2 className={`mb-3 text-2xl font-semibold`}>
-            Learn{' '}
-            <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
-              -&gt;
-            </span>
-          </h2>
-          <p className={`m-0 max-w-[30ch] text-sm opacity-50`}>
-            Learn about Next.js in an interactive course with&nbsp;quizzes!
-          </p>
-        </a>
-
-        <a
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2 className={`mb-3 text-2xl font-semibold`}>
-            Templates{' '}
-            <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
-              -&gt;
-            </span>
-          </h2>
-          <p className={`m-0 max-w-[30ch] text-sm opacity-50`}>
-            Explore starter templates for Next.js.
-          </p>
-        </a>
-
-        <a
-          href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2 className={`mb-3 text-2xl font-semibold`}>
-            Deploy{' '}
-            <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
-              -&gt;
-            </span>
-          </h2>
-          <p className={`m-0 max-w-[30ch] text-sm opacity-50`}>
-            Instantly deploy your Next.js site to a shareable URL with Vercel.
-          </p>
-        </a>
+      <div className={opcionesMenu[9][9] ? "ContentBoxAll":"ContentBox"} >
+        {opcionesMenu.map((opcion, index) => {
+          if (opcion[index]) {
+            const Component = opcion.component;
+            return <div key={index}  ><Component id="admin" handleChangeOption={handleChangeOption} /></div>
+          }
+        })}
       </div>
     </main>
   )
