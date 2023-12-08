@@ -23,7 +23,8 @@ import CategoriaModalEdit from './ModalsEdit/CategoriaModalEdit.jsx'
 import CategoriaModalCreate from './ModalCreate/CategoriaModalCreate.jsx'
 import CategoriaModalDelete from './ModalDelete/CategoriaModalDelete.jsx'
 import ValoracionActivoModalEdit from './ModalsEdit/ValoracionActivoModalEdit.jsx'
-
+import ValoracionActivoModalCreate from './ModalCreate/ValoracionActivoModalCreate.jsx'
+import ValoracionActivoModalDelete from './ModalDelete/ValoracionActivoModalDelete.jsx'
 
 
 
@@ -58,7 +59,9 @@ export default function ModalMediator(props) {
                 : tipo === "categoria" && peticion == "edita" ? <CategoriaModalEdit {...props}/>
                 : tipo === "categoria" && peticion == "crea" ? <CategoriaModalCreate {...props}/>
                 : tipo === "categoria" && peticion == "elimina" ? <CategoriaModalDelete {...props}/>
-                : tipo === "valoracionActivo" && peticion == "edita" ? <ValoracionActivoModalEdit {...props}/>:""
+                : tipo === "valoracionActivo" && peticion == "edita" ? <ValoracionActivoModalEdit {...props}/>
+                : tipo === "valoracionActivo" && peticion == "crea" ? <ValoracionActivoModalCreate {...props}/>
+                : tipo === "valoracionActivo" && peticion == "elimina" ? <ValoracionActivoModalDelete {...props}/>:""
             }
         </>
     )

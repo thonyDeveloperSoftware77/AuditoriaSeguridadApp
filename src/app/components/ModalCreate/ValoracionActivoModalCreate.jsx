@@ -2,10 +2,10 @@
 import { Modal, ModalContent, ModalHeader, ModalBody, ModalFooter, Button, useDisclosure, Input, Select, SelectItem, CardBody, Card, CardHeader } from "@nextui-org/react";
 import { useEffect, useState } from "react";
 import { getActivos } from "../../servicios/activoSrv";
-import { putValoracionActivo } from "../../servicios/valoracionActivoSrv";
+import { postValoracionActivo, putValoracionActivo } from "../../servicios/valoracionActivoSrv";
 import { confidencialidadArray, disponibilidadArray, integridadArray } from "../Table/utils";
 
-export default function ValoracionActivoModal(props) {
+export default function ValoracionActivoModalCreate(props) {
 
     //Informacion necesaria para editar un grupo
     const [activos, setActivos] = useState([]);
@@ -20,19 +20,19 @@ export default function ValoracionActivoModal(props) {
     //{ name: "Disponibilidad" , uid: "_disponibilidad", sortable: true},
     //{ name: "Valoracion" , uid: "_valoracion", sortable: true},
     //Datos para la edicion de un grupo
-    const [codigo, setCodigo] = useState(props.data._codigo);
-    const [nombre, setNombre] = useState(props.data._nombre);
-    const [descripcion, setDescripcion] = useState(props.data._descripcion);
-    const [ubicacion, setUbicacion] = useState(props.data._ubicacion);
-    const [confidencialidad, setConfidencialidad] = useState(props.data._confidencialidad);
-    const [integridad, setIntegridad] = useState(props.data._integridad);
-    const [disponibilidad, setDisponibilidad] = useState(props.data._disponibilidad);
+    const [id_asset, setIdAsset] = useState(props.data._id_asset);
+    const [codigo, setCodigo] = useState();
+    const [nombre, setNombre] = useState();
+    const [descripcion, setDescripcion] = useState();
+    const [ubicacion, setUbicacion] = useState();
+    const [confidencialidad, setConfidencialidad] = useState();
+    const [integridad, setIntegridad] = useState();
+    const [disponibilidad, setDisponibilidad] = useState();
 
-    const [idOrganizacion, setIdOrganizacion] = useState(props.data._idOrganizacion);
     const { onOpen } = useDisclosure();
 
     const editar = () => {
-        putValoracionActivo(props.data._id, props.data._id_asset, confidencialidad, integridad, disponibilidad, idOrganizacion).then((response) => {
+        postValoracionActivo(id_asset, confidencialidad, integridad, disponibilidad).then((response) => {
             console.log(response);
             props.setUpdate(prevState => !prevState);
             props.cerrar(true);
@@ -46,11 +46,15 @@ export default function ValoracionActivoModal(props) {
 
 
     useEffect(() => {
-        ///getActivos(props.data._id).then((response) => {
-        ///    setActivos(response);
-        ///});
+        getActivos(props.idOrganizacion).then((response) => {
+            setActivos(response);
+        });
     }, []);
 
+
+    const handleSelectChange = (e) => {
+        setIdAsset(e.target.value);
+    }
     const handleSelectChangeConfidencialidad = (e) => {
         setConfidencialidad(e.target.value);
     }
@@ -72,11 +76,20 @@ export default function ValoracionActivoModal(props) {
                             <ModalHeader className="flex flex-col gap-1">Actualizar</ModalHeader>
 
                             <ModalBody>
-                                <Input isDisabled label="Codigo" value={codigo} onChange={(e) => setCodigo(e.target.value)} />
-                                <Input isDisabled label="Nombre" value={nombre} onChange={(e) => setNombre(e.target.value)} />
-                                <Input isDisabled label="Descripcion" value={descripcion} onChange={(e) => setDescripcion(e.target.value)} />
-                                <Input isDisabled label="Ubicacion" value={ubicacion} onChange={(e) => setUbicacion(e.target.value)} />
+                                <Select
+                                    label="Seleccione un activo"
+                                    className="max-w-xs"
+                                    onChange={handleSelectChange}
+                                >
+                                    {activos.map((organizacion) => (
+                                        <SelectItem key={organizacion._id} value={organizacion._id}>
+                                            {organizacion._code + "-" + organizacion._name}
+                                        </SelectItem>
+                                    ))}
+                                </Select>
+
                                 <div className="flex flex-row gap-2">
+
                                     <Select
                                         isRequired
                                         label="Confidencialidad"
@@ -116,17 +129,7 @@ export default function ValoracionActivoModal(props) {
                                 </div>
 
                                 {/*
-                                    <Select
-                                        label="Seleccione un activo"
-                                        className="max-w-xs"
-                                        onChange={handleSelectChange}
-                                    >
-                                        {activos.map((organizacion) => (
-                                            <SelectItem key={organizacion._id} value={idOrganizacion._id}>
-                                                {organizacion._code + "-" + organizacion._name}
-                                            </SelectItem>
-                                        ))}
-                                    </Select>*/
+                                    */
                                 }
 
 

@@ -31,7 +31,7 @@ export default function ValoracionActivoOption() {
     }, [idOrganizacion, update]);
 
     const columns = [
-        { name: "ID", uid: "_id_valoracion", sortable: true },
+        { name: "ID", uid: "_id", sortable: true },
         { name: "Codigo", uid: "_codigo", sortable: true},
         { name: "Nombre", uid: "_nombre", sortable: true },
         { name: "Descripcion", uid: "_descripcion", sortable: true},
@@ -46,7 +46,7 @@ export default function ValoracionActivoOption() {
 
 
 
-    const INITIAL_VISIBLE_COLUMNS = ["_codigo", "nombre" , "_descripcion", "_ubicacion", "_confidencialidad", "_integridad", "_disponibilidad", "_valoracion", "actions"];
+    const INITIAL_VISIBLE_COLUMNS = ["_codigo", "_nombre" , "_descripcion", "_ubicacion", "_confidencialidad", "_integridad", "_disponibilidad", "_valoracion", "actions"];
 
     return (
         <di>

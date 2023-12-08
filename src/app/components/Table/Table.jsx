@@ -23,7 +23,7 @@ import { VerticalDotsIcon } from "./VerticalDotsIcon";
 import { SearchIcon } from "./SearchIcon";
 import { ChevronDownIcon } from "./ChevronDownIcon";
 import { statusOptions } from "./data";
-import { capitalize } from "./utils";
+import { capitalize, confidencialidadArray, disponibilidadArray, integridadArray } from "./utils";
 
 import ModalMediator from "../ModalMediator.jsx"
 const statusColorMap = {
@@ -355,25 +355,37 @@ export default function App(props) {
       case "_confidencialidad":
         return (
           <div className="flex flex-col">
-            <p className="text-bold text-small capitalize">{user._confidencialidad}</p>
+            <p className="text-bold text-small capitalize">
+              {
+                confidencialidadArray.find(item => item.puntuacion === user._confidencialidad).nombre
+              }
+            </p>
           </div>
         );
       case "_integridad":
         return (
           <div className="flex flex-col">
-            <p className="text-bold text-small capitalize">{user._integridad}</p>
+            <p className="text-bold text-small capitalize">
+              {
+                integridadArray.find(item => item.puntuacion === user._integridad).nombre
+              }
+            </p>
           </div>
         );
       case "_disponibilidad":
         return (
           <div className="flex flex-col">
-            <p className="text-bold text-small capitalize">{user._disponibilidad}</p>
+            <p className="text-bold text-small capitalize">
+              {
+                disponibilidadArray.find(item => item.puntuacion === user._disponibilidad).nombre
+              }
+            </p>
           </div>
         );
       case "_valoracion":
         return (
           <div className="flex flex-col">
-            <p className="text-bold text-small capitalize">{user._confidencialidad+user._integridad+user._disponibilidad}</p>
+            <p className="text-bold text-small capitalize">{user._confidencialidad + user._integridad + user._disponibilidad}</p>
           </div>
         );
 
