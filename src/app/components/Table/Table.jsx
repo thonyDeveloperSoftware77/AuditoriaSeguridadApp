@@ -250,19 +250,19 @@ export default function App(props) {
         );
       case "_name":
         return (
-          <div className="flex flex-col">
-            <p className="text-bold text-small capitalize">{user._name}</p>
+          <div style={{ width: "150px" }} className="flex flex-col">
+            <p className="text-bold text-small capitalize">{"֍" + " " + user._name}</p>
           </div>
         );
       case "_description":
         return (
-          <div style={{width: "300px"}} className="flex flex-col">
+          <div style={{ width: "300px" }} className="flex flex-col">
             <p className="text-bold text-small capitalize">{user._description}</p>
           </div>
         );
       case "_ubication":
         return (
-          <div  style={{width: "200px"}} className="flex flex-col">
+          <div style={{ width: "200px" }} className="flex flex-col">
             <p className="text-bold text-small capitalize">{user._ubication}</p>
           </div>
         );
@@ -330,7 +330,7 @@ export default function App(props) {
         );
       case "_ast_business_unit":
         return (
-          <div style={{width: "200px"}} className="flex flex-col">
+          <div style={{ width: "200px" }} className="flex flex-col">
             {user._ast_business_unit.map((businessUnit, index) => (
               console.log(businessUnit),
               <div>
@@ -345,6 +345,38 @@ export default function App(props) {
             ))}
           </div>
         );
+
+      case "_codigo":
+        return (
+          <div className="flex flex-col">
+            <p className="text-bold text-small capitalize">{user._codigo}</p>
+          </div>
+        );
+      case "_confidencialidad":
+        return (
+          <div className="flex flex-col">
+            <p className="text-bold text-small capitalize">{user._confidencialidad}</p>
+          </div>
+        );
+      case "_integridad":
+        return (
+          <div className="flex flex-col">
+            <p className="text-bold text-small capitalize">{user._integridad}</p>
+          </div>
+        );
+      case "_disponibilidad":
+        return (
+          <div className="flex flex-col">
+            <p className="text-bold text-small capitalize">{user._disponibilidad}</p>
+          </div>
+        );
+      case "_valoracion":
+        return (
+          <div className="flex flex-col">
+            <p className="text-bold text-small capitalize">{user._confidencialidad+user._integridad+user._disponibilidad}</p>
+          </div>
+        );
+
 
       case "actions":
         return (

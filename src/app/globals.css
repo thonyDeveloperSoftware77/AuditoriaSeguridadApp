@@ -42,6 +42,16 @@
     padding: 20px;
 }
 
+.Acordion span{
+    color: #fff;
+    font-weight: 500;
+    margin-left: 10px;
+
+}
+
+.userProfileContent{
+    
+}
 .ContentBox {
     margin-left: 20%;
     transition: all 0.3s ease;
