@@ -12,7 +12,7 @@ export async function getUsuarios(id) {
     return data;
 }
 
-export async function postUsuario(nombre, apellido, email, password, idGrupo, idOrganizacion) {
+export async function postUsuario(nombre, apellido, email, idOrganizacion,password, idGrupo ) {
     const response = await fetch('http://localhost:8000/api/users/', {
         method: 'POST',
         headers: {
@@ -22,9 +22,9 @@ export async function postUsuario(nombre, apellido, email, password, idGrupo, id
             "nombre": nombre,
             "apellido": apellido,
             "email": email,
+            "idOrganizacion": idOrganizacion,
             "password": password,
-            "idGrupo": idGrupo,
-            "idOrganizacion": idOrganizacion
+            "idGrupo": idGrupo
         })
     });
     const data = await response.json();
@@ -42,9 +42,9 @@ export async function putUsuario(id, nombre, apellido, email, password, idGrupo,
             "nombre": nombre,
             "apellido": apellido,
             "email": email,
+            "idOrganizacion": idOrganizacion,
             "password": password,
             "idGrupo": idGrupo,
-            "idOrganizacion": idOrganizacion
         })
     });
     const data = await response.json();

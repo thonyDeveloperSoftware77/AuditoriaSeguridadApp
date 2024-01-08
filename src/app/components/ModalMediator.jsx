@@ -56,9 +56,9 @@ export default function ModalMediator(props) {
                 : tipo === "tipoActivo" && peticion == "edita" ? <TipoActivoModalEdit {...props}/>
                 : tipo === "tipoActivo" && peticion == "crea" ? <TipoActivoModalCreate {...props}/>
                 : tipo === "tipoActivo" && peticion == "elimina" ? <TipoActivoModalDelete {...props}/>
-                : tipo === "categoria" && peticion == "edita" ? <CategoriaModalEdit {...props}/>
-                : tipo === "categoria" && peticion == "crea" ? <CategoriaModalCreate {...props}/>
-                : tipo === "categoria" && peticion == "elimina" ? <CategoriaModalDelete {...props}/>
+                : tipo === "c" && peticion == "edita" ? <CategoriaModalEdit {...props}/>
+                : tipo === "c" && peticion == "crea" ? <CategoriaModalCreate {...props}/>
+                : tipo === "c" && peticion == "elimina" ? <CategoriaModalDelete {...props}/>
                 : tipo === "valoracionActivo" && peticion == "edita" ? <ValoracionActivoModalEdit {...props}/>
                 : tipo === "valoracionActivo" && peticion == "crea" ? <ValoracionActivoModalCreate {...props}/>
                 : tipo === "valoracionActivo" && peticion == "elimina" ? <ValoracionActivoModalDelete {...props}/>:""

@@ -19,7 +19,7 @@ export default function UsuarioModalCreate(props) {
     const { onOpen } = useDisclosure();
 
     const editar = () => {
-        postUsuario(nombre, apellido, email, password, idGrupo, props.data._idOrganizacion).then((response) => {
+        postUsuario(nombre, apellido, email,props.idOrganizacion, password, idGrupo).then((response) => {
             console.log(response);
             props.setUpdate(prevState => !prevState);
             props.cerrar(true);
@@ -31,8 +31,9 @@ export default function UsuarioModalCreate(props) {
 
 
     useEffect(() => {
-        getGrupos(props.data._idOrganizacion).then((response) => {
+        getGrupos(props.idOrganizacion).then((response) => {
             setGrupos(response);
+            console.log(response)
         });
     }, []);
     const handleSelectChange = (e) => {
@@ -47,7 +48,7 @@ export default function UsuarioModalCreate(props) {
                 <ModalContent>
                     {(onClose) => (
                         <>
-                            <ModalHeader className="flex flex-col gap-1">Actualiar una grupo</ModalHeader>
+                            <ModalHeader className="flex flex-col gap-1">Crear un Usuario</ModalHeader>
                             <ModalBody>
                                 <Input value={nombre} onValueChange={setNombre} isRequired type="text" label="Nombre" />
                                 <Input value={apellido} onValueChange={setApellido} isRequired type="text" label="Apellido" />
@@ -59,7 +60,7 @@ export default function UsuarioModalCreate(props) {
                                     onChange={handleSelectChange}
                                 >
                                     {grupos.map((grupo) => (
-                                        <SelectItem key={grupo._id} value={idGrupo._id}>
+                                        <SelectItem key={grupo._id} value={grupo._id}>
                                             {grupo._nombre}
                                         </SelectItem>
                                     ))}

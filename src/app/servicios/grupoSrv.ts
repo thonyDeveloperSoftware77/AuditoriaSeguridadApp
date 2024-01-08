@@ -12,7 +12,7 @@ export async function getGrupos(id) {
     return data;
 }
 
-export async function postGrupo(nombre, idOrganizacion) {
+export async function postGrupo(nombre, idOrganizacion, rol) {
     const response = await fetch('http://localhost:8000/api/grupo/', {
         method: 'POST',
         headers: {
@@ -21,13 +21,15 @@ export async function postGrupo(nombre, idOrganizacion) {
         body: JSON.stringify({
             "nombre": nombre,
             "idOrganizacion": idOrganizacion,
+            "rol": rol,
         })
     });
     const data = await response.json();
     return data;
 }
 
-export async function putGrupo(id, nombre, idOrganizacion) {
+export async function putGrupo(id, nombre, idOrganizacion, rol) {
+    console.log(rol)
     const response = await fetch('http://localhost:8000/api/grupo/', {
         method: 'PUT',
         headers: {
@@ -37,6 +39,7 @@ export async function putGrupo(id, nombre, idOrganizacion) {
             "id": id,
             "nombre": nombre,
             "idOrganizacion": idOrganizacion,
+            "rol": rol,
         })
     });
     const data = await response.json();

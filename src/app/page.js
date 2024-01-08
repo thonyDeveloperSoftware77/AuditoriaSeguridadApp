@@ -1,212 +1,111 @@
 "use client"
-import Image from 'next/image'
-import Table from './components/Table/Table'
-import { Button, User } from '@nextui-org/react'
-import { Accordion, AccordionItem } from "@nextui-org/accordion";
-import { useState } from 'react';
-import OrganizacionOption from "./components/OptionsMenu/OrganizacionOption"
-import UsuarioOption from "./components/OptionsMenu/UsuarioOption"
-import DepartamentoOption from "./components/OptionsMenu/DepartamentoOption"
-import EtiquetaOption from "./components/OptionsMenu/EtiquetaOption"
-import Categoria from "./components/OptionsMenu/CategoriaOption"
-import ClasificacionOption from "./components/OptionsMenu/ClasificacionOption"
-import TipoActivoOption from "./components/OptionsMenu/TipoActivoOption"
-import CriticidadOption from "./components/OptionsMenu/CriticidadOption"
-import GrupoOption from "./components/OptionsMenu/GrupoOption"
-import ActionOption from "./components/OptionsMenu/ActivoOption"
-import ValoracionOption from "./components/OptionsMenu/ValoracionOption"
+import { Button, Card, CardBody, CardHeader, Input, User } from '@nextui-org/react'
+import { EyeFilledIcon } from "./EyeFilledIcon";
+import { EyeSlashFilledIcon } from "./EyeSlashFilledIcon";
+import { use, useEffect, useState } from 'react';
+import { getVerify } from './servicios/verifySrv';
+import { useUser } from './UserContext';
+import { usePathname, useRouter, useSearchParams } from 'next/navigation';
+import Spline from '@splinetool/react-spline';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
 
 export default function Home() {
+
+
+  const notifyVerifySucces = () => toast("Usuario verificado con éxito");
+  const notifyVerifyError = () => toast.error("Usuario no encontrado");
+
+
+  const router = useRouter();
+
+  const [isVisible, setIsVisible] = useState(false);
+
+  const toggleVisibility = () => setIsVisible(!isVisible);
   //OpcionesDelMenu
-  const [opcionesMenu, setOpcionesMenu] = useState([{
-    0: true,
-    component: OrganizacionOption
-  }, {
-    1: false,
-    component: UsuarioOption
-  }, {
-    2: false,
-    component: DepartamentoOption
-  }, {
-    3: false,
-    component: EtiquetaOption
-  }, {
-    4: false,
-    component: ClasificacionOption
-  }, {
-    5: false,
-    component: Categoria
-  }, {
-    6: false,
-    component: TipoActivoOption
-  }, {
-    7: false,
-    component: CriticidadOption
-  }, {
-    8: false,
-    component: GrupoOption
-  }, {
-    9: false,
-    component: ActionOption
-  },{
-    10: false,
-    component: ValoracionOption
-  }]);
 
 
-  //funciones para los cambios de estados
+  const { usuario, setUsuario } = useUser();
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
 
-  const handleChangeOption = (numero) => {
-    const nuevasOpcionesMenu = opcionesMenu.map((opcion, index) => {
-      return {
-        ...opcion,
-        [index]: index === numero
-      }
-    })
+  const verificarUsuario = async () => {
 
-    setOpcionesMenu(nuevasOpcionesMenu)
+    const response = await getVerify(email, password);
+    if (response[0]._Resultado == 1) {
+      notifyVerifySucces();
+      setUsuario(response[0]);
+    } else {
+      notifyVerifyError();
+    }
   }
 
+  useEffect(() => {
+    if (usuario != null) {
+      if (usuario._Rol == 1) {
+        router.push('/dashboard-admin');
+
+      } else if (usuario._Rol == 0) {
+        router.push('/dashboard-user');
+      }
+    }
+  }
+    , [usuario]);
 
   return (
     <main className="flex min-h-screen flex-col items-center justify-between p-24">
-      {/*sideBar */}
-      <div className={opcionesMenu[9][9] ? "SideBarHidden" : "SideBar"}>
-        <div className='ContentSideBar'>
-          <center>
-            <Image src='/logo.png' width={70} height={70} />
-          </center>
-          {/*User photo, roll and name*/}
-          <br />
-          <center>
-            <div className='userProfileContent'>
-              <User
-                name="Jane Doe"
-                description="Admin"
-                avatarProps={{
-                  src: "https://i.pravatar.cc/150?u=a04258114e29026702d"
-                }}
-              />
+      <ToastContainer />
+      <div className='splineContainer'>
+        <Spline scene="https://prod.spline.design/ypJLvplM0W9uDf3D/scene.splinecode" />
+      </div>
+      <div className="mainContainerTitle flex flex-col items-center justify-center">
+        <h1 >Seguridad y Auditoría</h1>
+
+        <img src="/logo.png" alt="Logo" />
+        <h2 className="text-2xl font-bold text-center text-default-900">Iniciar Sesión</h2>
+
+      </div>
+
+
+      <Card style={{ width: "350px", marginTop: "10%" }} className="max-w-[440px]">
+        <CardHeader className="justify-between">
+          <div className="flex gap-5">
+            <div className="flex flex-col gap-1 items-start justify-center">
+              <h4 className="text-small font-semibold leading-none text-default-600">Login</h4>
             </div>
-
-          </center>
-          <br />
-          <hr />
-          <div className='Acordion'>
-            <Accordion
-              color="primary"
-              motionProps={{
-                variants: {
-                  enter: {
-                    y: 0,
-                    opacity: 1,
-                    height: "auto",
-                    transition: {
-                      height: {
-                        type: "spring",
-                        stiffness: 500,
-                        damping: 30,
-                        duration: 1,
-                      },
-                      opacity: {
-                        easings: "ease",
-                        duration: 1,
-                      },
-                    },
-                  },
-                  exit: {
-                    y: -10,
-                    opacity: 0,
-                    height: 0,
-                    transition: {
-                      height: {
-                        easings: "ease",
-                        duration: 0.25,
-                      },
-                      opacity: {
-                        easings: "ease",
-                        duration: 0.3,
-                      },
-                    },
-                  },
-                },
-              }}
-            >
-              <AccordionItem key="1" aria-label="Accordion 1" title="Gestiones">
-                <Button onClick={() => handleChangeOption(0)} style={{ width: "100%", color: "white" }} variant="solid"
-                  color={opcionesMenu[0][0] ? "secondary" : "transparent"}
-                >
-
-                  Organizaciones
-                </Button>
-                <Button onClick={() => handleChangeOption(8)} style={{ width: "100%", color: "white" }} variant="solid"
-                  color={opcionesMenu[8][8] ? "secondary" : "transparent"}
-                >
-                  Grupos
-                </Button>
-                <Button onClick={() => handleChangeOption(1)} style={{ width: "100%", color: "white" }} variant="solid"
-                  color={opcionesMenu[1][1] ? "secondary" : "transparent"}
-                >
-                  Usuarios
-                </Button>
-                <Button onClick={() => handleChangeOption(2)} style={{ width: "100%", color: "white" }} variant="solid"
-                  color={opcionesMenu[2][2] ? "secondary" : "transparent"}
-                >
-                  Departamentos
-                </Button>
-                <Button onClick={() => handleChangeOption(3)} style={{ width: "100%", color: "white" }} variant="solid"
-                  color={opcionesMenu[3][3] ? "secondary" : "transparent"}
-                >
-                  Etiquetas
-                </Button>
-                <Button onClick={() => handleChangeOption(6)} style={{ width: "100%", color: "white" }} variant="solid"
-                  color={opcionesMenu[6][6] ? "secondary" : "transparent"}
-                >
-                  Tipo de Activos
-                </Button>
-                <Button onClick={() => handleChangeOption(5)} style={{ width: "100%", color: "white" }} variant="solid"
-                  color={opcionesMenu[5][5] ? "secondary" : "transparent"}
-                >
-                  Categorias
-                </Button>
-                <Button onClick={() => handleChangeOption(4)} style={{ width: "100%", color: "white" }} variant="solid"
-                  color={opcionesMenu[4][4] ? "secondary" : "transparent"}
-                >
-                  Clasificaciones
-                </Button>
-                <Button onClick={() => handleChangeOption(7)} style={{ width: "100%", color: "white" }} variant="solid"
-                  color={opcionesMenu[7][7] ? "secondary" : "transparent"}
-                >
-                  Criticidad
-                </Button>
-
-              </AccordionItem>
-              <AccordionItem key="2" aria-label="Accordion 2" title="Activos">
-                <Button onClick={() => handleChangeOption(9)} style={{ width: "100%", color: "white" }} variant="solid"
-                  color={opcionesMenu[9][9] ? "secondary" : "transparent"}>
-                  Identificación
-                </Button>
-                <Button onClick={() => handleChangeOption(10)} style={{ width: "100%", color: "white" }} variant="solid"
-                  color={opcionesMenu[10][10] ? "secondary" : "transparent"}>
-                  Evaluación
-                </Button>
-
-              </AccordionItem>
-            </Accordion>
-
           </div>
+        </CardHeader>
+        <CardBody className="px-3 py-0 text-small text-default-400">
+          <Input value={email} onValueChange={setEmail} isRequired type="email" variant="bordered" label="Email" placeholder="Enter your email" />
+          <br />
+          <Input
+            value={password} onValueChange={setPassword} isRequired
+            label="Password"
+            variant="bordered"
+            placeholder="Enter your password"
+            endContent={
+              <button className="focus:outline-none" type="button" onClick={toggleVisibility}>
+                {isVisible ? (
+                  <EyeSlashFilledIcon className="text-2xl text-default-400 pointer-events-none" />
+                ) : (
+                  <EyeFilledIcon className="text-2xl text-default-400 pointer-events-none" />
+                )}
+              </button>
+            }
+            type={isVisible ? "text" : "password"}
+            className="max-w-xs"
+          />
+          <br /><br />
 
+          <Button onClick={verificarUsuario} color="secondary">
+            Iniciar Sesión
+          </Button>
+          <br /><br />
+        </CardBody>
+      </Card>
 
-        </div>
-      </div>
-      <div className={opcionesMenu[9][9] ? "ContentBoxAll" : "ContentBox"} >
-        {opcionesMenu.map((opcion, index) => {
-          if (opcion[index]) {
-            const Component = opcion.component;
-            return <div key={index}  ><Component id="admin" handleChangeOption={handleChangeOption} /></div>
-          }
-        })}
-      </div>
     </main>
   )
+
 }

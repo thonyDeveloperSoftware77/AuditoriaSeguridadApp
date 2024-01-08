@@ -2,6 +2,8 @@
 import { useEffect, useState } from "react";
 import { getOrganizaciones } from "../../servicios/organizacionSrv";
 import Table from "../Table/Table"
+import { GoOrganization } from "react-icons/go";
+
 export default function OrganizacionOption() {
     const [organizaciones, setOrganizaciones] = useState([]);
     const [update, setUpdate] = useState(false); // Estado para forzar la actualización
@@ -29,7 +31,15 @@ export default function OrganizacionOption() {
 
     return (
         <di>
-            <h1>Organizacion</h1>
+
+            <div className="flex flex-row">
+                <div>
+                    <h1><GoOrganization /></h1>
+                </div>
+                <div>
+                    <h1>Organizacion</h1>
+                </div>
+            </div>
             <p>Organizaciones Registradas en el sistema</p>
             {organizaciones == undefined ? <p></p> : <Table setUpdate={setUpdate} columns={columns} INITIAL_VISIBLE_COLUMNS={INITIAL_VISIBLE_COLUMNS} option={"organizacion"} users={organizaciones} />
             }

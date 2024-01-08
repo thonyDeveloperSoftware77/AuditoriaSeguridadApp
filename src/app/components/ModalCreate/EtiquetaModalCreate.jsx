@@ -27,7 +27,7 @@ export default function EtiquetaModalCreate(props) {
                 <ModalContent>
                     {(onClose) => (
                         <>
-                            <ModalHeader className="flex flex-col gap-1">Actualiar una organizacion</ModalHeader>
+                            <ModalHeader className="flex flex-col gap-1">Crear una etiqueta</ModalHeader>
                             <ModalBody>
                                 <Input value={nombre} onValueChange={setNombre} isRequired type="text" label="Nombre" />
                                 <Input value={descripcion} onValueChange={setDescripcion} isRequired type="text" label="Descripcion" />

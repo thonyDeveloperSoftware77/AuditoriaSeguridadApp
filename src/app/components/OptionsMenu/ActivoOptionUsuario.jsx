@@ -5,9 +5,9 @@ import Table from "../Table/Table"
 import { Select, SelectItem } from "@nextui-org/react";
 import { getOrganizaciones } from "../../servicios/organizacionSrv";
 import { PiFileMagnifyingGlassDuotone } from "react-icons/pi";
-export default function ActivoOption() {
+export default function ActivoOptionUsuario(props) {
     const [organizaciones, setOrganizaciones] = useState([]);
-    const [idOrganizacion, setIdOrganizacion] = useState(-1);
+    const [idOrganizacion, setIdOrganizacion] = useState(props.idOrganizacionUsuario);
     const [activos, setActivos] = useState([]);
     const [update, setUpdate] = useState(false); // Estado para forzar la actualización
 
@@ -16,10 +16,6 @@ export default function ActivoOption() {
             setOrganizaciones(response);
         });
     }, []);
-
-    const handleSelectChange = (e) => {
-        setIdOrganizacion(e.target.value);
-    };
 
     useEffect(() => {
 
@@ -63,23 +59,10 @@ export default function ActivoOption() {
                     <h1>Activo</h1>
                 </div>
             </div>
-
-
             <p>Activoes Registradas en el sistema</p>
-            <Select
-                label="Select an organizacion"
-                className="max-w-xs"
-                onChange={handleSelectChange}
-            >
-                {organizaciones.map((organizacion) => (
-                    <SelectItem key={organizacion._id} value={idOrganizacion._id}>
-                        {organizacion._nombre}
-                    </SelectItem>
-                ))}
-            </Select>
 
 
-            {idOrganizacion == -1 || activos == undefined ? <p></p> : <Table setUpdate={setUpdate} columns={columns} INITIAL_VISIBLE_COLUMNS={INITIAL_VISIBLE_COLUMNS} idOrganizacion={idOrganizacion} option={"activo"} users={activos} />
+            {idOrganizacion == -1 || activos == undefined ? <p></p> : <Table setUpdate={setUpdate} columns={columns} INITIAL_VISIBLE_COLUMNS={INITIAL_VISIBLE_COLUMNS} idOrganizacion={props.idOrganizacionUsuario} option={"activoUsuario"} users={activos} />
             }
         </di>
     )

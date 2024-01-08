@@ -3,6 +3,8 @@ import './globals.css'
 // app/layout.tsx
 import { Providers } from "./providers";
 
+import { UserProvider } from './UserContext';
+
 const inter = Inter({ subsets: ['latin'] })
 
 export const metadata = {
@@ -14,12 +16,14 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en">
       <body className={inter.className}>
-        <Providers>
-          <main className="ligth text-foreground bg-background">
-            {children}
+        <UserProvider>
+          <Providers>
+            <main className="ligth text-foreground bg-background">
+              {children}
 
-          </main>
-        </Providers>
+            </main>
+          </Providers>
+        </UserProvider>
       </body>
     </html>
   )

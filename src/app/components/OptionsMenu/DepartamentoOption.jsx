@@ -4,6 +4,7 @@ import { getDepartamentos } from "../../servicios/departamentoSrv ";
 import Table from "../Table/Table"
 import { Select, SelectItem } from "@nextui-org/react";
 import { getOrganizaciones } from "../../servicios/organizacionSrv";
+import { FaBuildingUser } from "react-icons/fa6";
 export default function DepartamentoOption() {
     const [organizaciones, setOrganizaciones] = useState([]);
     const [idOrganizacion, setIdOrganizacion] = useState(-1);
@@ -18,10 +19,10 @@ export default function DepartamentoOption() {
 
     const handleSelectChange = (e) => {
         setIdOrganizacion(e.target.value);
-      };
+    };
 
     useEffect(() => {
-        
+
         if (idOrganizacion != -1) {
             getDepartamentos(idOrganizacion).then((response) => {
                 console.log(response);
@@ -46,7 +47,16 @@ export default function DepartamentoOption() {
 
     return (
         <di>
-            <h1>Departamento</h1>
+            <div className="flex flex-row">
+                <div>
+                    <h1><FaBuildingUser /></h1>
+                </div>
+                <div>
+                    <h1>Departamento</h1>
+                </div>
+            </div>
+
+
             <p>Departamentoes Registradas en el sistema</p>
             <Select
                 label="Select an organizacion"

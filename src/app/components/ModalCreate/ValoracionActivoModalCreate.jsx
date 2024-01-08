@@ -73,7 +73,7 @@ export default function ValoracionActivoModalCreate(props) {
                 <ModalContent  >
                     {(onClose) => (
                         <>
-                            <ModalHeader className="flex flex-col gap-1">Actualizar</ModalHeader>
+                            <ModalHeader className="flex flex-col gap-1">Valorar un Activo</ModalHeader>
 
                             <ModalBody>
                                 <Select

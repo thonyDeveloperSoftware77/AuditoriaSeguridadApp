@@ -4,6 +4,7 @@ import { getUsuarios } from "../../servicios/usuarioSrv ";
 import Table from "../Table/Table"
 import { Select, SelectItem } from "@nextui-org/react";
 import { getOrganizaciones } from "../../servicios/organizacionSrv";
+import { FaRegUserCircle } from "react-icons/fa";
 export default function UsuarioOption() {
     const [organizaciones, setOrganizaciones] = useState([]);
     const [idOrganizacion, setIdOrganizacion] = useState(-1);
@@ -18,10 +19,10 @@ export default function UsuarioOption() {
 
     const handleSelectChange = (e) => {
         setIdOrganizacion(e.target.value);
-      };
+    };
 
     useEffect(() => {
-        
+
         if (idOrganizacion != -1) {
             getUsuarios(idOrganizacion).then((response) => {
                 console.log(response);
@@ -42,11 +43,18 @@ export default function UsuarioOption() {
 
 
 
-    const INITIAL_VISIBLE_COLUMNS = ["_nombre", "_apellido", "_email","_idGrupo", "actions"];
+    const INITIAL_VISIBLE_COLUMNS = ["_nombre", "_apellido", "_email", "_idGrupo", "actions"];
 
     return (
         <di>
-            <h1>Usuario</h1>
+            <div className="flex flex-row">
+                <div>
+                    <h1><FaRegUserCircle /></h1>
+                </div>
+                <div>
+                    <h1>Usuario</h1>
+                </div>
+            </div>
             <p>Usuarioes Registradas en el sistema</p>
             <Select
                 label="Select an organizacion"

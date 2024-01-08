@@ -355,37 +355,56 @@ export default function App(props) {
       case "_confidencialidad":
         return (
           <div className="flex flex-col">
-            <p className="text-bold text-small capitalize">
+
+            <Chip color={user._confidencialidad == 1 ||
+              user._confidencialidad == 2 ? "success" :
+              user._confidencialidad == 3 ? "warning" :
+                user._confidencialidad == 4 ? "danger" : "danger"} variant="bordered">
               {
                 confidencialidadArray.find(item => item.puntuacion === user._confidencialidad).nombre
               }
-            </p>
+            </Chip>
+
+
+
           </div>
         );
       case "_integridad":
         return (
           <div className="flex flex-col">
-            <p className="text-bold text-small capitalize">
+            <Chip color={user._integridad == 1 ||
+              user._integridad == 2 ? "success" :
+              user._integridad == 3 ? "warning" :
+                user._integridad == 4 ? "danger" : "danger"} variant="bordered">
               {
                 integridadArray.find(item => item.puntuacion === user._integridad).nombre
               }
-            </p>
+            </Chip>
           </div>
         );
       case "_disponibilidad":
         return (
           <div className="flex flex-col">
-            <p className="text-bold text-small capitalize">
+            <Chip color={user._disponibilidad == 1 ||
+              user._disponibilidad == 2 ? "success" :
+              user._disponibilidad == 3 ? "warning" :
+                user._disponibilidad == 4 ? "danger" : "danger"} variant="bordered">
               {
                 disponibilidadArray.find(item => item.puntuacion === user._disponibilidad).nombre
               }
-            </p>
+            </Chip>
           </div>
         );
       case "_valoracion":
         return (
           <div className="flex flex-col">
             <p className="text-bold text-small capitalize">{user._confidencialidad + user._integridad + user._disponibilidad}</p>
+          </div>
+        );
+      case "_rol":
+        return (
+          <div className="flex flex-col">
+            <Chip color="primary" variant="dot">{user._rol ==1 ? "Administrador": "Usuario"}</Chip>
           </div>
         );
 

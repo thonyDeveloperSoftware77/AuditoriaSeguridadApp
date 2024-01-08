@@ -4,6 +4,8 @@ import { getGrupos } from "../../servicios/grupoSrv";
 import Table from "../Table/Table"
 import { Select, SelectItem } from "@nextui-org/react";
 import { getOrganizaciones } from "../../servicios/organizacionSrv";
+import { VscOrganization } from "react-icons/vsc";
+
 export default function GrupoOption() {
     const [organizaciones, setOrganizaciones] = useState([]);
     const [idOrganizacion, setIdOrganizacion] = useState(-1);
@@ -18,10 +20,10 @@ export default function GrupoOption() {
 
     const handleSelectChange = (e) => {
         setIdOrganizacion(e.target.value);
-      };
+    };
 
     useEffect(() => {
-        
+
         if (idOrganizacion != -1) {
             getGrupos(idOrganizacion).then((response) => {
                 console.log(response);
@@ -33,6 +35,7 @@ export default function GrupoOption() {
     const columns = [
         { name: "ID", uid: "_id", sortable: true },
         { name: "Nombre", uid: "_nombre", sortable: true },
+        { name: "Rol", uid: "_rol", sortable: true },
         { name: "Organizacion", uid: "_idOrganizacion", sortable: true },
         { name: "STATUS", uid: "status", sortable: true },
         { name: "ACTIONS", uid: "actions" }
@@ -41,11 +44,19 @@ export default function GrupoOption() {
 
 
 
-    const INITIAL_VISIBLE_COLUMNS = ["_nombre", "_idOrganizacion", "status", "actions"];
+    const INITIAL_VISIBLE_COLUMNS = ["_nombre", "_idOrganizacion", "_rol", "status", "actions"];
 
     return (
         <di>
-            <h1>Grupo</h1>
+
+            <div className="flex flex-row">
+                <div>
+                    <h1><VscOrganization /></h1>
+                </div>
+                <div>
+                    <h1>Grupo</h1>
+                </div>
+            </div>
             <p>Grupoes Registradas en el sistema</p>
             <Select
                 label="Select an organizacion"

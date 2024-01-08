@@ -29,7 +29,7 @@ export default function OrganizacionModalCreate(props) {
                 <ModalContent>
                     {(onClose) => (
                         <>
-                            <ModalHeader className="flex flex-col gap-1">Actualiar una organizacion</ModalHeader>
+                            <ModalHeader className="flex flex-col gap-1">Crear una organizacion</ModalHeader>
                             <ModalBody>
                                 <Input value={nombre} onValueChange={setNombre} isRequired type="text" label="Nombre" />
                                 <Input value={sector} onValueChange={setSector} isRequired type="text" label="Sector" />

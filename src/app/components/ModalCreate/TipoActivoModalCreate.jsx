@@ -27,7 +27,7 @@ export default function TipoActivoModalCreate(props) {
                 <ModalContent>
                     {(onClose) => (
                         <>
-                            <ModalHeader className="flex flex-col gap-1">Actualia un Tipo de Activo</ModalHeader>
+                            <ModalHeader className="flex flex-col gap-1">Crear Tipo de Activo</ModalHeader>
                             <ModalBody>
                                 <Input value={nombre} onValueChange={setNombre} isRequired type="text" label="Nombre" />
                                 <Input value={descripcion} onValueChange={setDescripcion} isRequired type="text" label="Descripcion" />

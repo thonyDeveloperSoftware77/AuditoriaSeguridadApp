@@ -13,10 +13,11 @@ export default function GrupoModal(props) {
     //Datos para la edicion de un grupo
     const [nombre, setNombre] = useState(props.data._nombre);
     const [idOrganizacion, setIdOrganizacion] = useState(props.data._idOrganizacion);
+    const [rol, setRol] = useState(props.data._rol);
     const { onOpen } = useDisclosure();
 
     const editar = () => {
-        putGrupo(props.data._id, nombre, idOrganizacion).then((response) => {
+        putGrupo(props.data._id, nombre, idOrganizacion, rol).then((response) => {
             console.log(response);
             props.setUpdate(prevState => !prevState);
             props.cerrar(true);
@@ -34,7 +35,10 @@ export default function GrupoModal(props) {
     }, []);
     const handleSelectChange = (e) => {
         setIdOrganizacion(e.target.value);
-      };
+    };
+    const handleSelectChangeRol = (e) => {
+        setRol(e.target.value);
+    }
 
 
     return (
@@ -57,6 +61,19 @@ export default function GrupoModal(props) {
                                             {organizacion._nombre}
                                         </SelectItem>
                                     ))}
+                                </Select>
+
+                                <Select
+                                    label="Select an organizacion"
+                                    className="max-w-xs"
+                                    onChange={handleSelectChangeRol}
+                                >
+                                    <SelectItem key={0} value={0}>
+                                        Usuario
+                                    </SelectItem>
+                                    <SelectItem key={1} value={1}>
+                                        Administrador
+                                    </SelectItem>
                                 </Select>
 
                             </ModalBody>

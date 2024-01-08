@@ -80,7 +80,7 @@ export default function DepartamentoModalCreate(props) {
                 <ModalContent>
                     {(onClose) => (
                         <>
-                            <ModalHeader className="flex flex-col gap-1">Actualiar una departamento</ModalHeader>
+                            <ModalHeader className="flex flex-col gap-1">Crear un Departamento</ModalHeader>
                             <ModalBody>
                                 <Input value={nombre} onValueChange={setNombre} isRequired type="text" label="Nombre" />
                                 <Input value={descripcion} onValueChange={setDescripcion} isRequired type="text" label="Descripcion" />
@@ -118,7 +118,7 @@ export default function DepartamentoModalCreate(props) {
                                     </CardBody>
                                 </Card>
                                 <Select
-                                    label="Select an departamento"
+                                    label="Seleccione un Usuario"
                                     className="max-w-xs"
                                     onChange={handleSelectChange}
                                 >
